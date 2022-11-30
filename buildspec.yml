@@ -6,6 +6,19 @@ version: 0.2
 #   parameter-store:
 #     LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
 
+build-list:
+  - identifier: build1
+    env:
+      variables:
+        TF_VAR_BUILD_ID: build1
+    ignore-failure: false
+  - identifier: build2
+    #     buildspec: build2.yml
+    env:
+      variables:
+        TF_VAR_BUILD_ID: build2
+    ignore-failure: true
+
 phases:
   install:
     commands:
