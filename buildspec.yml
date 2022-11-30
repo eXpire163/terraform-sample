@@ -6,18 +6,27 @@ version: 0.2
 #   parameter-store:
 #     LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
 batch:
-  build-list:
-    - identifier: build1
+  build-graph:
+    - identifier: gcc-nonprod
       env:
         variables:
-          TF_VAR_BUILD_ID: build1
-      ignore-failure: false
-    - identifier: build2
-      #     buildspec: build2.yml
+          TF_VAR_BUILD_ID: gcc-nonprod
+    - identifier: gcc-prod
       env:
         variables:
-          TF_VAR_BUILD_ID: build2
-      ignore-failure: true
+          TF_VAR_BUILD_ID: gcc-prod
+      depend-on:
+        - gcc-nonprod
+    - identifier: btf-nonprod
+      env:
+        variables:
+          TF_VAR_BUILD_ID: btf-nonprod
+    - identifier: btf-prod
+      env:
+        variables:
+          TF_VAR_BUILD_ID: btf-prod
+      depend-on:
+        - btf-nonprod
 
 phases:
   install:
