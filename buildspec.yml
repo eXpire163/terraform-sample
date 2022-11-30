@@ -7,26 +7,34 @@ version: 0.2
 #     LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
 batch:
   build-graph:
-    - identifier: gcc-nonprod
+    - identifier: automation_stack
       env:
         variables:
-          TF_VAR_BUILD_ID: gcc-nonprod
-    - identifier: gcc-prod
+          TF_VAR_BUILD_ID: automation_stack
+    - identifier: gcc_nonprod
       env:
         variables:
-          TF_VAR_BUILD_ID: gcc-prod
+          TF_VAR_BUILD_ID: gcc_nonprod
       depend-on:
-        - gcc-nonprod
-    - identifier: btf-nonprod
+        - automation_stack
+    - identifier: gcc_prod
       env:
         variables:
-          TF_VAR_BUILD_ID: btf-nonprod
-    - identifier: btf-prod
-      env:
-        variables:
-          TF_VAR_BUILD_ID: btf-prod
+          TF_VAR_BUILD_ID: gcc_prod
       depend-on:
-        - btf-nonprod
+        - gcc_nonprod
+    - identifier: btf_nonprod
+      env:
+        variables:
+          TF_VAR_BUILD_ID: btf_nonprod
+      depend-on:
+        - automation_stack
+    - identifier: btf_prod
+      env:
+        variables:
+          TF_VAR_BUILD_ID: btf_prod
+      depend-on:
+        - btf_nonprod
 
 phases:
   install:
